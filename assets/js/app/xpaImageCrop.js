@@ -4,7 +4,7 @@
 angular.module('xpa').directive('xpaImageCrop', ['$document', function ($document) {
     return{
         restrict: 'E',
-        templateUrl: 'xpaImageCrop.html',
+        templateUrl: 'views/partial/directives/xpaImageCrop.html',
         scope: {
             src: '@'
         },
