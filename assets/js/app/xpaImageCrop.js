@@ -15,7 +15,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 y = 0,
                 minDelta = 3;
 
-            var image = angular.element($document[0].querySelector(".crop-img"));
+            var image = element.children(0).children(0).children(0);
 
             element.css({
                 position: 'relative'
