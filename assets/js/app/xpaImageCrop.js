@@ -13,9 +13,13 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 startY = 0,
                 x = 0,
                 y = 0,
-                minDelta = 3;
+                minDelta = 3,
+                overlayWidth = 60;
 
-            var image = element.children(0).children(0).children(0);
+            var image = angular.element(element.children(0).children(0).children(0)[0]);
+            var overlay = angular.element(element.children(0).children(0).children(0)[1]);
+            overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + overlayWidth + 'px white');
+            overlay.css('box-shadow', 'inset 0 0 0 ' + overlayWidth + 'px white');
 
             element.css({
                 position: 'relative'
