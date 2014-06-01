@@ -14,11 +14,9 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 x = 0,
                 y = 0,
                 minDelta = 3,
-                imgHeight = 520,
-                imgWidth = 720,
                 crop = {
                     overlayWidth: 40,
-                    width: 420,
+                    width: 520,
                     height: 420
                 }
 
@@ -49,15 +47,27 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 }));
 
             var drag = function (event) {
-                y = Math.max(crop.height - crop.overlayWidth - imgHeight, Math.min(crop.overlayWidth, event.pageY - startY));
-                x = Math.max(crop.width - crop.overlayWidth - imgWidth, Math.min(crop.overlayWidth, event.pageX - startX));
-                console.log('x:' + x + ' y:' + y);
+                y = Math.max(crop.height - crop.overlayWidth - imgHeight(), Math.min(crop.overlayWidth, event.pageY - startY));
+                x = Math.max(crop.width - crop.overlayWidth - imgWidth(), Math.min(crop.overlayWidth, event.pageX - startX));
+
                 if (Math.abs(y) >= minDelta || Math.abs(x) >= minDelta) {
                     image.css({
                         top: y + 'px',
                         left: x + 'px'
                     });
                 }
+            };
+
+            var imgHeight = function () {
+                return (image)
+                    ? image[0].clientHeight
+                    : 0;
+            };
+
+            var imgWidth = function () {
+                return (image)
+                    ? image[0].clientWidth
+                    : 0;
             };
 
             var stopDrag = function (event) {
