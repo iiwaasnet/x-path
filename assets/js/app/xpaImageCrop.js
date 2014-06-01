@@ -14,15 +14,24 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 x = 0,
                 y = 0,
                 minDelta = 3,
-                overlayWidth = 40,
-                imgWidth = 720,
                 imgHeight = 520,
-                cropWidth = 320;
+                imgWidth = 720,
+                crop = {
+                    overlayWidth: 40,
+                    width: 420,
+                    height: 420
+                }
 
             var image = angular.element(element.children(0).children(0).children(0)[0]);
             var overlay = angular.element(element.children(0).children(0).children(0)[1]);
-            overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + overlayWidth + 'px white');
-            overlay.css('box-shadow', 'inset 0 0 0 ' + overlayWidth + 'px white');
+            var container = element.children(0);
+
+            container.css({
+                width: crop.width + 'px',
+                height: crop.height + 'px'
+            });
+            overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
+            overlay.css('box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
 
             element.css({
                 position: 'relative'
@@ -40,8 +49,8 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 }));
 
             var drag = function (event) {
-                y = Math.max(cropWidth - overlayWidth - imgHeight, Math.min(overlayWidth, event.pageY - startY));
-                x = Math.max(cropWidth - overlayWidth - imgWidth, Math.min(overlayWidth, event.pageX - startX));
+                y = Math.max(crop.height - crop.overlayWidth - imgHeight, Math.min(crop.overlayWidth, event.pageY - startY));
+                x = Math.max(crop.width - crop.overlayWidth - imgWidth, Math.min(crop.overlayWidth, event.pageX - startX));
                 console.log('x:' + x + ' y:' + y);
                 if (Math.abs(y) >= minDelta || Math.abs(x) >= minDelta) {
                     image.css({
