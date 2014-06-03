@@ -8,7 +8,14 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
         scope: {
             src: '@'
         },
-        link: function (scope, element, attrs) {
+        transclude: true,
+        link: function (scope, element, attrs, ctrl, transclude) {
+            var placeholder = element.find('span');
+            var cssClass = placeholder.attr('class');
+            var template = angular.element(transclude()[1]);
+            template.attr('class', cssClass);
+            placeholder.replaceWith(template);
+
             var startX = 0,
                 startY = 0,
                 x = 0,

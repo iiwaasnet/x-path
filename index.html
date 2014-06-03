@@ -12,8 +12,18 @@
 </head>
 <body>
 
+<div ng-controller="HomeController as homeCtrl">
+    <xpa-image-crop>
+        <img ng-src="{{homeCtrl.image}}">
+    </xpa-image-crop>
 
-<xpa-image-crop src="http://lorempixel.com/720/520/"></xpa-image-crop>
+    <div style="float: right;">
+        <button ng-click="homeCtrl.CropImage()">Crop</button>
+
+        <!--<input ng-model="homeCtrl.person.lastName">
+        <label ng-bind="homeCtrl.person.lastName"></label>-->
+    </div>
+</div>
 
 <!--<div class="crop-container">
     <div xpa-draggable drag="true" class="crop-overlay">
@@ -23,8 +33,11 @@
 
 <script src="assets/js/lib/angular.min.js"></script>
 <script src="assets/js/app/person.js"></script>
+
 <script src="assets/js/app/xpa.js"></script>
-<script src="assets/js/app/xpaGraggable.js"></script>
-<script src="assets/js/app/xpaImageCrop.js"></script>
+<script src="assets/js/app/directives/xpaGraggable.js"></script>
+<script src="assets/js/app/controllers/HomeController.js"></script>
+<script src="assets/js/app/directives/xpaImageCrop.js"></script>
+<script src="assets/js/app/services/ImageCrop.js"></script>
 </body>
 </html>

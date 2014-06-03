@@ -3,11 +3,3 @@
  */
 
 angular.module('xpa', []);
-
-
-angular.module('xpa').controller('HomeController', function(){
-    this.person = new Person();
-    this.person.firstName = 'Frank';
-    this.person.lastName = 'Musterman';
-    this.person.age = 40;
-});
