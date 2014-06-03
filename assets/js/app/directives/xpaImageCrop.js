@@ -10,11 +10,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
         },
         transclude: true,
         link: function (scope, element, attrs, ctrl, transclude) {
-            var placeholder = element.find('span');
-            var cssClass = placeholder.attr('class');
-            var template = angular.element(transclude()[1]);
-            template.attr('class', cssClass);
-            placeholder.replaceWith(template);
+            transcludeImage(element, transclude);
 
             var startX = 0,
                 startY = 0,
@@ -63,6 +59,14 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                         left: x + 'px'
                     });
                 }
+            };
+
+            function transcludeImage(element, transclude){
+                var placeholder = element.find('span');
+                var cssClass = placeholder.attr('class');
+                var template = angular.element(transclude()[1]);
+                template.attr('class', cssClass);
+                placeholder.replaceWith(template);
             };
 
             var imgHeight = function () {
