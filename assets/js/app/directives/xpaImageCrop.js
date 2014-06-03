@@ -22,13 +22,8 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     overlayWidth: 40,
                     width: 520,
                     height: 420
-                }
-
-            var image = angular.element(element.children(0).children(0).children(0)[0]);
-            setupStyles(element);
-
-            element
-                .on('mousedown', (function (event) {
+                };
+                var onMousedown = function (event) {
                     event.preventDefault();
                     this.classList.add('dragging');
                     element.on('mousemove', drag);
@@ -36,7 +31,12 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
 
                     startX = event.pageX - x;
                     startY = event.pageY - y;
-                }));
+                };
+
+            var image = angular.element(element.children(0).children(0).children(0)[0]);
+            setupStyles(element);
+
+            element.on('mousedown', onMousedown);
 
             var drag = function (event) {
                 y = Math.max(crop.height - crop.overlayWidth - imgHeight(), Math.min(crop.overlayWidth, event.pageY - startY));
