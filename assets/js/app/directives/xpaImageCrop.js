@@ -6,7 +6,8 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
         restrict: 'E',
         templateUrl: 'views/partial/directives/xpaImageCrop.html',
         scope: {
-            src: '@'
+            src: '@',
+            imagePosition: '='
         },
         transclude: true,
         link: function (scope, element, attrs, ctrl, transclude) {
@@ -24,19 +25,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 }
 
             var image = angular.element(element.children(0).children(0).children(0)[0]);
-            var overlay = angular.element(element.children(0).children(0).children(0)[1]);
-            var container = element.children(0);
-
-            container.css({
-                width: crop.width + 'px',
-                height: crop.height + 'px'
-            });
-            overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
-            overlay.css('box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
-
-            element.css({
-                position: 'relative'
-            });
+            setupStyles(element);
 
             element
                 .on('mousedown', (function (event) {
@@ -58,10 +47,29 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                         top: y + 'px',
                         left: x + 'px'
                     });
+                    scope.imagePosition.x = x;
+                    scope.imagePosition.y = y;
+//                    scope.$apply();
                 }
             };
 
-            function transcludeImage(element, transclude){
+            function setupStyles(element) {
+                var overlay = angular.element(element.children(0).children(0).children(0)[1]);
+                var container = element.children(0);
+
+                container.css({
+                    width: crop.width + 'px',
+                    height: crop.height + 'px'
+                });
+                overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
+                overlay.css('box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
+
+                element.css({
+                    position: 'relative'
+                });
+            }
+
+            function transcludeImage(element, transclude) {
                 var placeholder = element.find('span');
                 var cssClass = placeholder.attr('class');
                 var template = angular.element(transclude()[1]);

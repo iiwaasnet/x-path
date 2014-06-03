@@ -13,13 +13,13 @@
 <body>
 
 <div ng-controller="HomeController as homeCtrl">
-    <xpa-image-crop>
+    <xpa-image-crop image-position="homeCtrl.imagePosition">
         <img ng-src="{{homeCtrl.image}}">
     </xpa-image-crop>
 
     <div style="float: right;">
         <button ng-click="homeCtrl.CropImage()">Crop</button>
-
+        <label>x:{{homeCtrl.imagePosition.x}} / y:{{homeCtrl.imagePosition.y}}</label>
         <!--<input ng-model="homeCtrl.person.lastName">
         <label ng-bind="homeCtrl.person.lastName"></label>-->
     </div>
