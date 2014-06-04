@@ -30,7 +30,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             element
                 .on('mousedown', function (event) {
                     event.preventDefault();
-                    this.classList.add('dragging');
+                    element.addClass('dragging');
                     element.on('mousemove', drag);
                     element.on('mouseup mouseleave', stopDrag);
 
@@ -44,7 +44,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
 
             var cropImage = function(){
                 stopDrag();
-
+                dom.overlay.css({visibility: 'hidden'});
             };
 
             var drag = function (event) {
@@ -107,7 +107,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             };
 
             var stopDrag = function (event) {
-                this.classList.remove('dragging');
+                element.removeClass('dragging');
                 element.off('mousemove', drag);
                 element.off('mouseup mouseleave', stopDrag);
             };
