@@ -33,3 +33,15 @@
     /*-webkit-box-shadow: inset 0 0 0 40px white;
     box-shadow: inset 0 0 0 40px white;*/
 }
+
+.container:before,
+.container:after {
+    content:"";
+    display:table;
+}
+.container:after {
+    clear:both;
+}
+.container {
+    zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}

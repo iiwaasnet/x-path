@@ -13,16 +13,21 @@
 <body>
 
 <div ng-controller="HomeController as homeCtrl">
-    <xpa-image-crop image-position="homeCtrl.imagePosition">
-        <img ng-src="{{homeCtrl.image}}">
-    </xpa-image-crop>
+        <!--<div xpa-image-crop image-position="homeCtrl.imagePosition">
+            <img ng-src="{{homeCtrl.image}}">
+        </div>-->
+    <div xpa-image-crop-container>
+        <div xpa-image-crop image-position="homeCtrl.imagePosition">
+            <img ng-src="{{homeCtrl.image}}">
+        </div>
+        <button>Crop</button>
+    </div>
 
-    <div style="float: right;">
+
+    <!--<div style="float: right;">
         <button ng-click="homeCtrl.CropImage()">Crop</button>
         <label>x:{{homeCtrl.imagePosition.x}} / y:{{homeCtrl.imagePosition.y}}</label>
-        <!--<input ng-model="homeCtrl.person.lastName">
-        <label ng-bind="homeCtrl.person.lastName"></label>-->
-    </div>
+    </div>-->
 </div>
 
 <!--<div class="crop-container">
@@ -35,9 +40,13 @@
 <script src="assets/js/app/person.js"></script>
 
 <script src="assets/js/app/xpa.js"></script>
+
 <script src="assets/js/app/directives/xpaGraggable.js"></script>
-<script src="assets/js/app/controllers/HomeController.js"></script>
 <script src="assets/js/app/directives/xpaImageCrop.js"></script>
+<script src="assets/js/app/directives/xpaImageCropContainer.js"></script>
+
 <script src="assets/js/app/services/ImageCrop.js"></script>
+
+<script src="assets/js/app/controllers/HomeController.js"></script>
 </body>
 </html>

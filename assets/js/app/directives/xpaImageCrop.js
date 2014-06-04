@@ -3,7 +3,7 @@
  */
 angular.module('xpa').directive('xpaImageCrop', ['$document', function ($document) {
     return{
-        restrict: 'E',
+        restrict: 'A',
         templateUrl: 'views/partial/directives/xpaImageCrop.html',
         scope: {
             src: '@',
@@ -24,8 +24,8 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     height: 420
                 };
 
-            var image = angular.element(element.children(0).children(0).children(0)[0]);
-            setupStyles(element);
+            var dom = setupStyles(element);
+            var image = dom.image;
 
             element
                 .on('mousedown', function (event) {
@@ -37,6 +37,15 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     startX = event.pageX - x;
                     startY = event.pageY - y;
                 });
+
+            scope.$on('crop-image', function(){
+                cropImage();
+            });
+
+            var cropImage = function(){
+                stopDrag();
+
+            };
 
             var drag = function (event) {
                 y = Math.max(crop.height - crop.overlayWidth - imgHeight(), Math.min(crop.overlayWidth, event.pageY - startY));
@@ -54,6 +63,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             };
 
             function setupStyles(element) {
+                var image = angular.element(element.children(0).children(0).children(0)[0]);
                 var overlay = angular.element(element.children(0).children(0).children(0)[1]);
                 var container = element.children(0);
 
@@ -65,8 +75,15 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 overlay.css('box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
 
                 element.css({
-                    position: 'relative'
+                    position: 'relative',
+                    width: crop.width + 'px',
+                    height: crop.height + 'px'
                 });
+
+                return {
+                    image: image,
+                    overlay: overlay
+                };
             }
 
             function transcludeImage(element, transclude) {
