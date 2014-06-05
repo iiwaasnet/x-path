@@ -28,7 +28,7 @@
     width: 100%;
     height: 100%;
     z-index: 1000;
-    opacity: .75;
+    opacity: 0.75;
     filter: alpha(opacity=7);
     /*-webkit-box-shadow: inset 0 0 0 40px white;
     box-shadow: inset 0 0 0 40px white;*/

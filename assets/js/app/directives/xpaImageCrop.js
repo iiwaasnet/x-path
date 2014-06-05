@@ -21,30 +21,33 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 crop = {
                     overlayWidth: 40,
                     width: 520,
-                    height: 420
+                    height: 420,
+                    opacity: 0.75
                 };
 
             var dom = setupStyles(element);
             var image = dom.image;
 
-            element
-                .on('mousedown', function (event) {
-                    event.preventDefault();
-                    element.addClass('dragging');
-                    element.on('mousemove', drag);
-                    element.on('mouseup mouseleave', stopDrag);
-
-                    startX = event.pageX - x;
-                    startY = event.pageY - y;
-                });
+            element.on('mousedown', mouseDown);
 
             scope.$on('crop-image', function(){
                 cropImage();
             });
 
+            function mouseDown(event) {
+                event.preventDefault();
+                element.addClass('dragging');
+                element.on('mousemove', drag);
+                element.on('mouseup mouseleave', stopDrag);
+
+                startX = event.pageX - x;
+                startY = event.pageY - y;
+            }
+
             var cropImage = function(){
                 stopDrag();
-                dom.overlay.css({visibility: 'hidden'});
+                element.off('mousedown', mouseDown);
+                dom.overlay.css({opacity: 1});
             };
 
             var drag = function (event) {
