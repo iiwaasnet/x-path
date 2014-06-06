@@ -13,6 +13,10 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
         link: function (scope, element, attrs, ctrl, transclude) {
             transcludeImage(element, transclude);
             scope.dragging = false;
+            scope.imageStyle = {
+                top: '0px',
+                left: '0px'
+            };
 
             var startX = 0,
                 startY = 0,
@@ -51,6 +55,11 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     });
                     scope.imagePosition.x = x;
                     scope.imagePosition.y = y;
+                    scope.imageStyle = {
+                        top: y + 'px',
+                        left: x + 'px'
+                    };
+                    scope.$apply();
                 }
             };
 
