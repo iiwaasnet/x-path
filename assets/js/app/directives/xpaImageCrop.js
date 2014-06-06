@@ -17,12 +17,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     startY: 0,
                     x: 0,
                     y: 0},
-                minDelta = 3,
-                cropArea = {
-                    overlayWidth: 40,
-                    width: 520,
-                    height: 420
-                };
+                cropArea = getCropConfig();
 
             setupStyles(element);
             var image = getImage();
@@ -45,15 +40,13 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 location.x = Math.max(cropArea.width - cropArea.overlayWidth - imageSize.width,
                     Math.min(cropArea.overlayWidth, event.pageX - location.startX));
 
-                if (Math.abs(location.y) >= minDelta || Math.abs(location.x) >= minDelta) {
-                    scope.imagePosition.x = location.x;
-                    scope.imagePosition.y = location.y;
-                    scope.imageStyle = {
-                        top: location.y + 'px',
-                        left: location.x + 'px'
-                    };
-                    scope.$apply();
-                }
+                scope.imagePosition.x = location.x;
+                scope.imagePosition.y = location.y;
+                scope.imageStyle = {
+                    top: location.y + 'px',
+                    left: location.x + 'px'
+                };
+                scope.$apply();
             };
 
             function setupStyles(element) {
@@ -103,6 +96,14 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 if (!scope.editable) {
                     scope.editable = true;
                     element.on('mousedown', mouseDown);
+                }
+            }
+
+            function getCropConfig() {
+                return {
+                    overlayWidth: 40,
+                    width: 520,
+                    height: 420
                 }
             }
 
