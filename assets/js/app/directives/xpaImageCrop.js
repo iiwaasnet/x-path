@@ -9,7 +9,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             image: '@',
             imagePosition: '='
         },
-        link: function (scope, element, attrs, ctrl, transclude) {
+        link: function (scope, element) {
             scope.dragging = false;
 
             var startX = 0,
@@ -43,10 +43,6 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 x = Math.max(crop.width - crop.overlayWidth - imgWidth(), Math.min(crop.overlayWidth, event.pageX - startX));
 
                 if (Math.abs(y) >= minDelta || Math.abs(x) >= minDelta) {
-//                    image.css({
-//                        top: y + 'px',
-//                        left: x + 'px'
-//                    });
                     scope.imagePosition.x = x;
                     scope.imagePosition.y = y;
                     scope.imageStyle = {
@@ -71,10 +67,6 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 var image = angular.element(container.children(0).children(0).children(0)[0]);
                 var overlay = angular.element(container.children(0).children(0).children(0)[1]);
 
-                /*container.css({
-                    width: crop.width + 'px',
-                    height: crop.height + 'px'
-                });*/
                 overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
                 overlay.css('box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
 
