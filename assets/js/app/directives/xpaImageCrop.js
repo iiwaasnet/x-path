@@ -12,10 +12,11 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
         link: function (scope, element) {
             scope.dragging = false;
 
-            var startX = 0,
-                startY = 0,
-                x = 0,
-                y = 0,
+            var location = {
+                    startX: 0,
+                    startY: 0,
+                    x: 0,
+                    y: 0},
                 minDelta = 3,
                 cropArea = {
                     overlayWidth: 40,
@@ -33,20 +34,22 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 element.on('mousemove', drag);
                 element.on('mouseup mouseleave', stopDrag);
 
-                startX = event.pageX - x;
-                startY = event.pageY - y;
+                location.startX = event.pageX - location.x;
+                location.startY = event.pageY - location.y;
             }
 
             var drag = function (event) {
-                y = Math.max(cropArea.height - cropArea.overlayWidth - imgHeight(), Math.min(cropArea.overlayWidth, event.pageY - startY));
-                x = Math.max(cropArea.width - cropArea.overlayWidth - imgWidth(), Math.min(cropArea.overlayWidth, event.pageX - startX));
+                location.y = Math.max(cropArea.height - cropArea.overlayWidth - imgHeight(),
+                    Math.min(cropArea.overlayWidth, event.pageY - location.startY));
+                location.x = Math.max(cropArea.width - cropArea.overlayWidth - imgWidth(),
+                    Math.min(cropArea.overlayWidth, event.pageX - location.startX));
 
-                if (Math.abs(y) >= minDelta || Math.abs(x) >= minDelta) {
-                    scope.imagePosition.x = x;
-                    scope.imagePosition.y = y;
+                if (Math.abs(location.y) >= minDelta || Math.abs(location.x) >= minDelta) {
+                    scope.imagePosition.x = location.x;
+                    scope.imagePosition.y = location.y;
                     scope.imageStyle = {
-                        top: y + 'px',
-                        left: x + 'px'
+                        top: location.y + 'px',
+                        left: location.x + 'px'
                     };
                     scope.$apply();
                 }
@@ -61,9 +64,6 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     width: cropArea.width + 'px',
                     height: cropArea.height + 'px'
                 };
-
-                var container = element.children(0);
-                var image = angular.element(container.children(0).children(0).children(0)[0]);
 
                 var overlay = angular.element(element.children(0).children(0).children(0).children(0)[1]);
                 overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + cropArea.overlayWidth + 'px white');
