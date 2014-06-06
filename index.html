@@ -17,8 +17,7 @@
             <img ng-src="{{homeCtrl.image}}">
         </div>-->
     <div xpa-image-crop-container>
-        <xpa-image-crop image-position="homeCtrl.imagePosition">
-            <img ng-src="{{homeCtrl.image}}">
+        <xpa-image-crop image-position="homeCtrl.imagePosition" image="{{homeCtrl.image}}">
         </xpa-image-crop>
         <button ng-click="imageCropContainerCtrl.crop()">Crop</button>
         <button ng-click="imageCropContainerCtrl.edit()">Edit</button>

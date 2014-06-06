@@ -3,15 +3,13 @@
  */
 angular.module('xpa').directive('xpaImageCrop', ['$document', function ($document) {
     return{
-        restrict: 'E',
+        restrict: 'AE',
         templateUrl: 'views/partial/directives/xpaImageCrop.html',
         scope: {
-            src: '@',
+            image: '@',
             imagePosition: '='
         },
-        transclude: true,
         link: function (scope, element, attrs, ctrl, transclude) {
-            transcludeImage(element, transclude);
             scope.dragging = false;
             scope.imageStyle = {
                 top: '0px',
@@ -80,14 +78,6 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     overlay: overlay
                 };
             }
-
-            function transcludeImage(element, transclude) {
-                var placeholder = element.find('span');
-                var cssClass = placeholder.attr('class');
-                var template = angular.element(transclude()[1]);
-                template.attr('class', cssClass);
-                placeholder.replaceWith(template);
-            };
 
             var imgHeight = function () {
                 return (image)
