@@ -11,10 +11,6 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
         },
         link: function (scope, element, attrs, ctrl, transclude) {
             scope.dragging = false;
-            scope.imageStyle = {
-                top: '0px',
-                left: '0px'
-            };
 
             var startX = 0,
                 startY = 0,
@@ -47,10 +43,10 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 x = Math.max(crop.width - crop.overlayWidth - imgWidth(), Math.min(crop.overlayWidth, event.pageX - startX));
 
                 if (Math.abs(y) >= minDelta || Math.abs(x) >= minDelta) {
-                    image.css({
-                        top: y + 'px',
-                        left: x + 'px'
-                    });
+//                    image.css({
+//                        top: y + 'px',
+//                        left: x + 'px'
+//                    });
                     scope.imagePosition.x = x;
                     scope.imagePosition.y = y;
                     scope.imageStyle = {
@@ -62,14 +58,23 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             };
 
             function setupStyles(element) {
+                scope.imageStyle = {
+                    top: '0px',
+                    left: '0px'
+                };
+                scope.containerStyle = {
+                    width: crop.width + 'px',
+                    height: crop.height + 'px'
+                };
+
                 var container = element.children(0);
                 var image = angular.element(container.children(0).children(0).children(0)[0]);
                 var overlay = angular.element(container.children(0).children(0).children(0)[1]);
 
-                container.css({
+                /*container.css({
                     width: crop.width + 'px',
                     height: crop.height + 'px'
-                });
+                });*/
                 overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
                 overlay.css('box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
 
