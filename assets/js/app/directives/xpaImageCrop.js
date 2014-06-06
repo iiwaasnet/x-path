@@ -17,7 +17,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 x = 0,
                 y = 0,
                 minDelta = 3,
-                crop = {
+                cropArea = {
                     overlayWidth: 40,
                     width: 520,
                     height: 420
@@ -38,8 +38,8 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             }
 
             var drag = function (event) {
-                y = Math.max(crop.height - crop.overlayWidth - imgHeight(), Math.min(crop.overlayWidth, event.pageY - startY));
-                x = Math.max(crop.width - crop.overlayWidth - imgWidth(), Math.min(crop.overlayWidth, event.pageX - startX));
+                y = Math.max(cropArea.height - cropArea.overlayWidth - imgHeight(), Math.min(cropArea.overlayWidth, event.pageY - startY));
+                x = Math.max(cropArea.width - cropArea.overlayWidth - imgWidth(), Math.min(cropArea.overlayWidth, event.pageX - startX));
 
                 if (Math.abs(y) >= minDelta || Math.abs(x) >= minDelta) {
                     scope.imagePosition.x = x;
@@ -58,16 +58,16 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     left: '0px'
                 };
                 scope.containerStyle = {
-                    width: crop.width + 'px',
-                    height: crop.height + 'px'
+                    width: cropArea.width + 'px',
+                    height: cropArea.height + 'px'
                 };
 
                 var container = element.children(0);
                 var image = angular.element(container.children(0).children(0).children(0)[0]);
                 var overlay = angular.element(container.children(0).children(0).children(0)[1]);
 
-                overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
-                overlay.css('box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
+                overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + cropArea.overlayWidth + 'px white');
+                overlay.css('box-shadow', 'inset 0 0 0 ' + cropArea.overlayWidth + 'px white');
 
                 return {
                     image: image,
