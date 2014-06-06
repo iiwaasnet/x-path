@@ -39,9 +39,10 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             }
 
             var drag = function (event) {
-                location.y = Math.max(cropArea.height - cropArea.overlayWidth - imgHeight(),
+                var imageSize = imgSize();
+                location.y = Math.max(cropArea.height - cropArea.overlayWidth - imageSize.height,
                     Math.min(cropArea.overlayWidth, event.pageY - location.startY));
-                location.x = Math.max(cropArea.width - cropArea.overlayWidth - imgWidth(),
+                location.x = Math.max(cropArea.width - cropArea.overlayWidth - imageSize.width,
                     Math.min(cropArea.overlayWidth, event.pageX - location.startX));
 
                 if (Math.abs(location.y) >= minDelta || Math.abs(location.x) >= minDelta) {
@@ -74,16 +75,16 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 return angular.element(element.children(0).children(0).children(0).children(0)[0])[0];
             }
 
-            var imgHeight = function () {
+            var imgSize = function () {
                 return (image)
-                    ? image.clientHeight
-                    : 0;
-            };
-
-            var imgWidth = function () {
-                return (image)
-                    ? image.clientWidth
-                    : 0;
+                    ? {
+                    width: image.clientWidth,
+                    height: image.clientHeight
+                }
+                    : {
+                    width: 0,
+                    height: 0
+                };
             };
 
             var stopDrag = function (event) {
