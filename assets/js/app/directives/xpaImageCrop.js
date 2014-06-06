@@ -23,8 +23,8 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     height: 420
                 };
 
-            var dom = setupStyles(element);
-            var image = dom.image;
+            setupStyles(element);
+            var image = getImage();
 
             function mouseDown(event) {
                 event.preventDefault();
@@ -64,26 +64,25 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
 
                 var container = element.children(0);
                 var image = angular.element(container.children(0).children(0).children(0)[0]);
-                var overlay = angular.element(container.children(0).children(0).children(0)[1]);
 
+                var overlay = angular.element(element.children(0).children(0).children(0).children(0)[1]);
                 overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + cropArea.overlayWidth + 'px white');
                 overlay.css('box-shadow', 'inset 0 0 0 ' + cropArea.overlayWidth + 'px white');
+            }
 
-                return {
-                    image: image,
-                    overlay: overlay
-                };
+            function getImage() {
+                return angular.element(element.children(0).children(0).children(0).children(0)[0])[0];
             }
 
             var imgHeight = function () {
                 return (image)
-                    ? image[0].clientHeight
+                    ? image.clientHeight
                     : 0;
             };
 
             var imgWidth = function () {
                 return (image)
-                    ? image[0].clientWidth
+                    ? image.clientWidth
                     : 0;
             };
 
