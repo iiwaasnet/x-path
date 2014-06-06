@@ -10,8 +10,31 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             imagePosition: '='
         },
         transclude: true,
+        /*controller: function($scope, $element, $attrs){
+            var ctrl = this;
+            ctrl.editable = true;
+
+            function cropImage(){
+                ctrl.editable = false;
+                $scope.$apply();
+                $element.crop();
+            };
+
+            function editImage(){
+                ctrl.editable = true;
+                $scope.$apply();
+                $element.edit();
+            };
+
+            $scope.$on('crop-image', cropImage);
+            $scope.$on('edit-image', editImage);
+        },*/
+        controllerAs: 'imageCropCtrl',
         link: function (scope, element, attrs, ctrl, transclude) {
             transcludeImage(element, transclude);
+
+            scope.editable = true;
+            scope.dragging = false;
 
             var startX = 0,
                 startY = 0,
@@ -28,27 +51,16 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             var dom = setupStyles(element);
             var image = dom.image;
 
-            element.on('mousedown', mouseDown);
-
-            scope.$on('crop-image', function(){
-                cropImage();
-            });
-
             function mouseDown(event) {
                 event.preventDefault();
-                element.addClass('dragging');
+                scope.dragging = true;
+                scope.$apply();
                 element.on('mousemove', drag);
                 element.on('mouseup mouseleave', stopDrag);
 
                 startX = event.pageX - x;
                 startY = event.pageY - y;
             }
-
-            var cropImage = function(){
-                stopDrag();
-                element.off('mousedown', mouseDown);
-                dom.overlay.css({opacity: 1});
-            };
 
             var drag = function (event) {
                 y = Math.max(crop.height - crop.overlayWidth - imgHeight(), Math.min(crop.overlayWidth, event.pageY - startY));
@@ -114,6 +126,10 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 element.off('mousemove', drag);
                 element.off('mouseup mouseleave', stopDrag);
             };
+
+            element.on('mousedown', mouseDown);
+            /*scope.$on('crop-image', cropImage);
+            scope.$on('edit-image', editImage);*/
         }
     };
 }]);

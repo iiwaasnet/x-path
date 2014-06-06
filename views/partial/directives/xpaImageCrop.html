@@ -1,6 +1,6 @@
-<div class="crop-container">
+<div class="crop-container"  ng-class="{'crop-container': true, 'dragging': dragging}">
     <div>
         <span ng-transclude class="crop-img"></span>
-        <div class="crop-overlay"></div>
+        <div ng-class="{'crop-overlay': true, 'hidden': !editable}"></div>
     </div>
 </div>
