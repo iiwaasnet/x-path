@@ -3,7 +3,7 @@
  */
 angular.module('xpa').directive('xpaImageCrop', ['$document', function ($document) {
     return{
-        restrict: 'AE',
+        restrict: 'E',
         templateUrl: 'views/partial/directives/xpaImageCrop.html',
         scope: {
             image: '@',
@@ -20,8 +20,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 crop = {
                     overlayWidth: 40,
                     width: 520,
-                    height: 420,
-                    opacity: 0.75
+                    height: 420
                 };
 
             var dom = setupStyles(element);
