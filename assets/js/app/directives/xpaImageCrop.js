@@ -10,30 +10,8 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             imagePosition: '='
         },
         transclude: true,
-        /*controller: function($scope, $element, $attrs){
-            var ctrl = this;
-            ctrl.editable = true;
-
-            function cropImage(){
-                ctrl.editable = false;
-                $scope.$apply();
-                $element.crop();
-            };
-
-            function editImage(){
-                ctrl.editable = true;
-                $scope.$apply();
-                $element.edit();
-            };
-
-            $scope.$on('crop-image', cropImage);
-            $scope.$on('edit-image', editImage);
-        },*/
-        controllerAs: 'imageCropCtrl',
         link: function (scope, element, attrs, ctrl, transclude) {
             transcludeImage(element, transclude);
-
-            scope.editable = true;
             scope.dragging = false;
 
             var startX = 0,
@@ -127,17 +105,19 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 element.off('mouseup mouseleave', stopDrag);
             };
 
-            function cropImage(){
+            function cropImage() {
                 scope.editable = false;
-                scope.$apply();
+                element.off('mousedown', mouseDown);
             }
 
-            function editImage(){
-                scope.editable = true;
-                scope.$apply();
+            function editImage() {
+                if (!scope.editable) {
+                    scope.editable = true;
+                    element.on('mousedown', mouseDown);
+                }
             }
 
-            element.on('mousedown', mouseDown);
+            editImage();
             scope.$on('crop-image', cropImage);
             scope.$on('edit-image', editImage);
         }

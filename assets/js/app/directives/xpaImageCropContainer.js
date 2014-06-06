@@ -12,12 +12,6 @@ angular.module('xpa').directive('xpaImageCropContainer', function(){
                 $scope.$broadcast('edit-image');
             };
         },
-        controllerAs: 'imageCropContainerCtrl',
-        link: function(scope, element, attrs){
-           /* var button = element.find('button');
-            button.on('click', function(){
-                scope.$broadcast('crop-image');
-            });*/
-        }
+        controllerAs: 'imageCropContainerCtrl'
     };
 });
