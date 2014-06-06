@@ -6,18 +6,18 @@ angular.module('xpa').directive('xpaImageCropContainer', function(){
         restrict: 'A',
         controller: function($scope){
             this.crop = function(){
-                scope.$broadcast('crop-image');
+                $scope.$broadcast('crop-image');
             };
             this.edit = function(){
-                scope.$broadcast('edit-image');
+                $scope.$broadcast('edit-image');
             };
         },
         controllerAs: 'imageCropContainerCtrl',
         link: function(scope, element, attrs){
-            var button = element.find('button');
+           /* var button = element.find('button');
             button.on('click', function(){
                 scope.$broadcast('crop-image');
-            });
+            });*/
         }
     };
 });

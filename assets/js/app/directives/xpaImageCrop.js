@@ -73,7 +73,6 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     });
                     scope.imagePosition.x = x;
                     scope.imagePosition.y = y;
-//                    scope.$apply();
                 }
             };
 
@@ -122,14 +121,25 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             };
 
             var stopDrag = function (event) {
-                element.removeClass('dragging');
+                scope.dragging = false;
+                scope.$apply();
                 element.off('mousemove', drag);
                 element.off('mouseup mouseleave', stopDrag);
             };
 
+            function cropImage(){
+                scope.editable = false;
+                scope.$apply();
+            }
+
+            function editImage(){
+                scope.editable = true;
+                scope.$apply();
+            }
+
             element.on('mousedown', mouseDown);
-            /*scope.$on('crop-image', cropImage);
-            scope.$on('edit-image', editImage);*/
+            scope.$on('crop-image', cropImage);
+            scope.$on('edit-image', editImage);
         }
     };
 }]);
