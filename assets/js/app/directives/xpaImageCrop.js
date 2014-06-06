@@ -3,7 +3,7 @@
  */
 angular.module('xpa').directive('xpaImageCrop', ['$document', function ($document) {
     return{
-        restrict: 'A',
+        restrict: 'E',
         templateUrl: 'views/partial/directives/xpaImageCrop.html',
         scope: {
             src: '@',
@@ -55,9 +55,9 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
             };
 
             function setupStyles(element) {
-                var image = angular.element(element.children(0).children(0).children(0)[0]);
-                var overlay = angular.element(element.children(0).children(0).children(0)[1]);
                 var container = element.children(0);
+                var image = angular.element(container.children(0).children(0).children(0)[0]);
+                var overlay = angular.element(container.children(0).children(0).children(0)[1]);
 
                 container.css({
                     width: crop.width + 'px',
@@ -65,12 +65,6 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                 });
                 overlay.css('-webkit-box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
                 overlay.css('box-shadow', 'inset 0 0 0 ' + crop.overlayWidth + 'px white');
-
-                element.css({
-                    position: 'relative',
-                    width: crop.width + 'px',
-                    height: crop.height + 'px'
-                });
 
                 return {
                     image: image,
