@@ -1,6 +1,3 @@
-/**
- * Created by iiwaasnet on 24.05.2014.
- */
 angular.module('xpa').directive('xpaDraggable', ['$document', function ($document) {
     return {
         restrict: 'A',

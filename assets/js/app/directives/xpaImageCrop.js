@@ -1,6 +1,3 @@
-/**
- * Created by iiwaasnet on 01.06.2014.
- */
 angular.module('xpa').directive('xpaImageCrop', ['$document', function ($document) {
     return{
         restrict: 'E',

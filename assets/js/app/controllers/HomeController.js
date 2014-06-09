@@ -1,7 +1,4 @@
-/**
- * Created by sivasenko on 02.06.2014.
- */
-angular.module('xpa').controller('HomeController', ['$document', 'ImageCrop', function ($document, ImageCrop) {
+angular.module('xpa').controller('HomeController', ['$document', function ($document) {
     this.person = new Person();
     this.person.firstName = 'Frank';
     this.person.lastName = 'Musterman';
@@ -13,8 +10,6 @@ angular.module('xpa').controller('HomeController', ['$document', 'ImageCrop', fu
     };
 
     this.CropImage = function () {
-        var img = $document.find('img');
-        ImageCrop.Crop(img[0]);
 //        this.person.lastName = Date();
         console.log(JSON.stringify(this.imagePosition));
     };
