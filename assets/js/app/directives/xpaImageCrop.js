@@ -19,7 +19,7 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
                     y: 0},
                 cropArea = getCropConfig();
 
-            setupStyles(element);
+            setupTemplate(element);
             var image = getImage();
 
             function mouseDown(event) {
@@ -42,18 +42,19 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
 
                 scope.imagePosition.x = location.x;
                 scope.imagePosition.y = location.y;
-                scope.imageStyle = {
-                    top: location.y + 'px',
-                    left: location.x + 'px'
-                };
+                setImageLocation(location.x, location.y);
                 scope.$apply();
             };
 
-            function setupStyles(element) {
+            function setImageLocation(x, y){
                 scope.imageStyle = {
-                    top: '0px',
-                    left: '0px'
+                    top: y + 'px',
+                    left: x + 'px'
                 };
+            }
+
+            function setupTemplate(element) {
+                setImageLocation(0, 0);
                 scope.containerStyle = {
                     width: cropArea.width + 'px',
                     height: cropArea.height + 'px'
