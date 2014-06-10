@@ -1,4 +1,4 @@
-angular.module('xpa').directive('xpaImageCrop', ['$document', function ($document) {
+angular.module('xpa').directive('xpaImageCrop', [function () {
     return{
         restrict: 'E',
         templateUrl: 'views/partial/directives/xpaImageCrop.html',
@@ -8,7 +8,6 @@ angular.module('xpa').directive('xpaImageCrop', ['$document', function ($documen
         },
         link: function (scope, element) {
             scope.dragging = false;
-
             var location = {
                     startX: 0,
                     startY: 0,
