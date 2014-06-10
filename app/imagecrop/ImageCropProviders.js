@@ -1,4 +1,4 @@
-angular.module('xpa').service('ImageCropProviders', function(){
+angular.module('xpa').service('ImageCropProviders', [function(){
     var service = this;
     var providers = {};
 
@@ -16,4 +16,13 @@ angular.module('xpa').service('ImageCropProviders', function(){
     service.find = function(providerId){
         return providers[providerId];
     }
-});
+
+    service.all = function(){
+        var tmp = new Array();
+        for(key in providers){
+            tmp.push(providers[key]);
+        }
+
+        return tmp;
+    };
+}]);

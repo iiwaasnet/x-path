@@ -3,11 +3,12 @@ angular.module('xpa').controller('HomeController', ['$document', function ($docu
     this.person.firstName = 'Frank';
     this.person.lastName = 'Musterman';
     this.person.age = 40;
-    this.image = "http://lorempixel.com/720/520/";
-    this.imagePosition = {
-        x: 0,
-        y: 0
-    };
+    this.image = {url: "http://lorempixel.com/720/520/",
+        position: {
+            x: 0,
+            y: 0
+        },
+        id: 1};
 
     this.CropImage = function () {
 //        this.person.lastName = Date();

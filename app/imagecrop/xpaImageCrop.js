@@ -1,10 +1,11 @@
-angular.module('xpa').directive('xpaImageCrop', [function () {
+angular.module('xpa').directive('xpaImageCrop', ['ImageCropProviders', function (ImageCropProviders) {
     return{
         restrict: 'E',
         templateUrl: 'app/imagecrop/xpaImageCrop.html',
         scope: {
             image: '@',
-            imagePosition: '='
+            imagePosition: '=',
+            id: '@'
         },
         link: function (scope, element) {
             scope.dragging = false;
@@ -42,7 +43,7 @@ angular.module('xpa').directive('xpaImageCrop', [function () {
                 scope.$apply();
             };
 
-            function setImageLocation(x, y){
+            function setImageLocation(x, y) {
                 scope.imageStyle = {
                     top: y + 'px',
                     left: x + 'px'
@@ -104,9 +105,24 @@ angular.module('xpa').directive('xpaImageCrop', [function () {
                 }
             }
 
+            function cropArea() {
+                return {
+                    x: 0,
+                    y: 0,
+                    width: 0,
+                    height: 0};
+            }
+
             editImage();
-            scope.$on('crop-image', cropImage);
-            scope.$on('edit-image', editImage);
+
+            var provider = {
+                id: scope.id,
+                edit: editImage,
+                crop: cropImage,
+                cropArea: cropArea
+            };
+            ImageCropProviders.register(provider);
+            element.on('$destroy', function(){ImageCropProviders.unregister(provider)});
         }
     };
 }]);
