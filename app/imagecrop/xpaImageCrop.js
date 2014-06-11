@@ -1,11 +1,9 @@
-angular.module('xpa').directive('xpaImageCrop', ['ImageCropProviders', function (ImageCropProviders) {
+angular.module('xpa').directive('xpaImageCrop', [function () {
     return{
         restrict: 'E',
         templateUrl: 'app/imagecrop/xpaImageCrop.html',
         scope: {
-            image: '@',
-            imagePosition: '=',
-            id: '@'
+            image: '='
         },
         link: function (scope, element) {
             scope.dragging = false;
@@ -22,7 +20,7 @@ angular.module('xpa').directive('xpaImageCrop', ['ImageCropProviders', function 
             function mouseDown(event) {
                 event.preventDefault();
                 scope.dragging = true;
-                scope.$apply();
+                scope.$digest();
                 element.on('mousemove', drag);
                 element.on('mouseup mouseleave', stopDrag);
 
@@ -37,10 +35,10 @@ angular.module('xpa').directive('xpaImageCrop', ['ImageCropProviders', function 
                 location.x = Math.max(cropArea.width - cropArea.overlayWidth - imageSize.width,
                     Math.min(cropArea.overlayWidth, event.pageX - location.startX));
 
-                scope.imagePosition.x = location.x;
-                scope.imagePosition.y = location.y;
+                scope.image.cropArea.x = location.x;
+                scope.image.cropArea.y = location.y;
                 setImageLocation(location.x, location.y);
-                scope.$apply();
+                scope.$digest();
             };
 
             function setImageLocation(x, y) {
@@ -80,7 +78,7 @@ angular.module('xpa').directive('xpaImageCrop', ['ImageCropProviders', function 
 
             var stopDrag = function (event) {
                 scope.dragging = false;
-                scope.$apply();
+                scope.$digest();
                 element.off('mousemove', drag);
                 element.off('mouseup mouseleave', stopDrag);
             };
@@ -105,24 +103,10 @@ angular.module('xpa').directive('xpaImageCrop', ['ImageCropProviders', function 
                 }
             }
 
-            function cropArea() {
-                return {
-                    x: 0,
-                    y: 0,
-                    width: 0,
-                    height: 0};
-            }
-
             editImage();
 
-            var provider = {
-                id: scope.id,
-                edit: editImage,
-                crop: cropImage,
-                cropArea: cropArea
-            };
-            ImageCropProviders.register(provider);
-            element.on('$destroy', function(){ImageCropProviders.unregister(provider)});
+            scope.$on('crop-image', cropImage);
+            scope.$on('edit-image', editImage);
         }
     };
 }]);

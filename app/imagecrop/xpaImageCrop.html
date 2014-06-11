@@ -1,7 +1,7 @@
 <div class="crop-component" ng-style="containerStyle">
     <div class="crop-container" ng-class="{'crop-container': true, 'dragging': dragging}">
         <div>
-            <img class="crop-img" ng-src="{{image}}" ng-style="imageStyle">
+            <img class="crop-img" ng-src="{{image.url}}" ng-style="imageStyle">
             <div ng-class="{'crop-overlay': true, 'hidden': !editable}"></div>
         </div>
     </div>
