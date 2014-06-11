@@ -13,15 +13,10 @@
 <body>
 
 <div ng-controller="HomeController as homeCtrl">
-    <!--<div xpa-image-crop image-position="homeCtrl.imagePosition">
-        <img ng-src="{{homeCtrl.image}}">
-    </div>-->
-    <div xpa-image-crop-container crop-providers="{{homeCtrl.image.id}}">
-        <xpa-image-crop id="{{homeCtrl.image.id}}" image-position="homeCtrl.image.position" image="{{homeCtrl.image.url}}">
-        </xpa-image-crop>
-        <button ng-click="imageCropContainerCtrl.crop()">Crop</button>
-        <button ng-click="imageCropContainerCtrl.edit()">Edit</button>
-    </div>
+    <xpa-image-crop id="{{homeCtrl.image.id}}" image-position="homeCtrl.image.position" image="{{homeCtrl.image.url}}">
+    </xpa-image-crop>
+    <button ng-click="homeCtrl.crop()">Crop</button>
+    <button ng-click="homeCtrl.edit()">Edit</button>
 
 
     <!--<div style="float: right;">
@@ -44,7 +39,6 @@
 <script src="app/directives/xpaDraggable.js"></script>
 
 <script src="app/imagecrop/xpaImageCrop.js"></script>
-<script src="app/imagecrop/xpaImageCropContainer.js"></script>
 <script src="app/imagecrop/ImageCropProviders.js"></script>
 
 <script src="app/controllers/HomeController.js"></script>
